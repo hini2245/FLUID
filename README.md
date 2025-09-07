@@ -21,7 +21,7 @@ pip install kornia
 
 To run anonymization, please run the following command:
 ```
-python optimize_h_facex_1000_checkpoint.py --exp output/folder --img_path input/folder --config celeba.yml --t 600 --n_inv_step 16 --n_train_step 50 --lr 0.001 --facenet --linear_edit --end_distance 150
+python run_fluid.py --exp output/folder --img_path input/folder --config celeba.yml --t 600 --n_inv_step 16 --n_train_step 50 --lr 0.001 --facenet --linear_edit --end_distance 150
 ```
 with the following description:
 ```
