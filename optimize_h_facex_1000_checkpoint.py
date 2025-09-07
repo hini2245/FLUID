@@ -64,7 +64,7 @@ class FLUID(object):
         else:
             exp_id = "default_exp"  # Default value if self.args.exp is not defined
         # seq_inv: sequence for reverse diffusion steps
-        seq_inv = np.linspace(0, 1, self.args.n_inv_step) * self.args.t_0
+        seq_inv = np.linspace(0, 1, self.args.n_inv_step) * self.args.t
         seq_inv = [int(s) for s in list(seq_inv)]
         seq_inv_next = [-1] + list(seq_inv[:-1])
 
@@ -121,7 +121,7 @@ class FLUID(object):
         learn_sigma = False
         
         # seq_inv: sequence for reverse diffusion steps
-        seq_inv = np.linspace(0, 1, self.args.n_inv_step) * self.args.t_0
+        seq_inv = np.linspace(0, 1, self.args.n_inv_step) * self.args.t
         seq_inv = [int(s) for s in list(seq_inv)]
         seq_inv_next = [-1] + list(seq_inv[:-1])
 
@@ -230,7 +230,7 @@ def parse_args_and_config():
     parser.add_argument('--align_face', type=int, default=1, help='align face or not')
 
     # Sampling arguments
-    parser.add_argument('--t_0', type=int, default=600, help='Return step in [0, 1000)') #the goal inversion step
+    parser.add_argument('--t', type=int, default=600, help='Return step in [0, 1000)') #the goal inversion step
     #parser.add_argument('--t_edit', type=int, default=500, help='In which timestep to perform explicit edit on h-feature')
     parser.add_argument('--n_inv_step', type=int, default=16, help='# of steps during generative process for inversion')
     parser.add_argument('--n_train_step', type=int, default=50, help='# of steps during generative process for train')
