@@ -257,36 +257,6 @@ def get_attribute(image, model, device): #for optimizing h.
             torchvision.transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),
         ])
         image = transforms_image(image)
-    # mtcnn = MTCNN(keep_all=True)
-    # image = Image.open(args.image_path)
-    # width, height = image.size
-    # boxes, probs = mtcnn.detect(image)
-    # x_min, y_min, x_max, y_max = boxes[0][0], boxes[0][1], boxes[0][2], boxes[0][3]
-    # x_min, y_min, x_max, y_max = adjust_bbox(x_min, y_min, x_max, y_max, width, height)
-    # image = image.crop((int(x_min), int(y_min), int(x_max), int(y_max)))
-    # image = transforms_image(image)
-
-    # if args.task == "parsing":
-    #     task = torch.tensor([0])
-    # elif args.task == "landmarks":
-    #     task = torch.tensor([1])
-    # elif args.task == "headpose":
-    #     task = torch.tensor([2])
-    # elif args.task == "attributes":
-    #     task = torch.tensor([3])
-    # elif args.task == "age_gender_race":
-    #     task = torch.tensor([4])
-    # elif args.task == "visibility":
-    #     task = torch.tensor([5])
-    # data = {'image': image, 'label': {"segmentation":torch.zeros([224,224]), "lnm_seg": torch.zeros([5, 2]),"landmark": torch.zeros([68, 2]), "headpose": torch.zeros([3]), "attribute": torch.zeros([40]), "a_g_e": torch.zeros([3]), 'visibility': torch.zeros([29])}, 'task': torch.tensor([1])}
-    # images, labels, tasks = data["image"], data["label"], data["task"]
-    # images = images.unsqueeze(0).to(device=device)
-    # for k in labels.keys():
-    #     labels[k] = labels[k].unsqueeze(0).to(device=device)
-    # tasks = tasks.to(device=device)
-
-    # landmark_output, _, _, _, _, _, _, _ = model(images, labels, tasks)
-    #print(f'landmark output: {landmark_output}')
     
     
     data = {'image': image, 'label': {"segmentation":torch.zeros([224,224]), "lnm_seg": torch.zeros([5, 2]),"landmark": torch.zeros([68, 2]), "headpose": torch.zeros([3]), "attribute": torch.zeros([40]), "a_g_e": torch.zeros([3]), 'visibility': torch.zeros([29])}, 'task': torch.tensor([3])}
@@ -313,40 +283,7 @@ def get_attribute(image, model, device): #for optimizing h.
     #if preds[0, 2:10], face component mask is made. If preds[0, 1:10], the entire face mask is made.
     #face_probability_mask = torch.tensor(preds[0, 1]).to(device)
     face_probability_mask = preds[0, 1:10].sum(dim=0)
-    # face_probability_mask = torch.tensor(preds[0, 2]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 3]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 4]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 5]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 6]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 7]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 8]).to(device)
-    # face_probability_mask += torch.tensor(preds[0, 9]).to(device)
-    
-    # if tasks[0] == 0:
-    #     preds = seg_output.softmax(dim=1)
-    #     mask = torch.argmax(preds, dim=1)
-    #     pred_mask = mask[0].detach().cpu().numpy()
-    #     save_path = os.path.join(args.results_path, "parsing.png")
-    #     cv2.imwrite(f"{save_path}", pred_mask)
-    #     mask, face, color_mask = visualize_mask(unnormalize(images[0].detach().cpu()), pred_mask)
-    #     save_path = os.path.join(args.results_path, "parsing_visualization.png")
-    #     cv2.imwrite(f"{save_path}", mask[:, :, ::-1])
-    # if tasks[0] == 2:
-    #     image = unnormalize(images[0].detach().cpu())
-    #     im = visualize_head_pose(image, headpose_output[0])
-    #     save_path_viz = os.path.join(args.results_path, "headpose.png")
-    #     save_path = os.path.join(args.results_path, "headpose.txt")
-    #     cv2.imwrite(f"{save_path_viz}", im[:, :, ::-1])
-    #     with open(f'{save_path}', 'w') as file:
-    #         file.write(f"Pitch: {headpose_output[0][0].item()*180/np.pi} \n")
-    #         file.write(f"Yaw: {headpose_output[0][1].item()*180/np.pi} \n")
-    #         file.write(f"Roll: {headpose_output[0][2].item()*180/np.pi}")
-    #     file.close()
 
-    
-    #print(f'attributes: {pred}')
-    
-    #return landmark_output[0].detach().cpu().numpy().reshape(68,2), pred
     return attribute_probability, face_probability_mask
 
 
