@@ -40,3 +40,7 @@ with the following description:
 ```
 
 To train your own diffusion model and use for editing, please refer to [DDIM](https://github.com/ermongroup/ddim) and make sure to change the input for `--config` and `--model_path` in the command above.
+
+
+
+This implementation heavily relies on [Asyrp](https://github.com/kwonminki/Asyrp_official?tab=readme-ov-file), [Boundary Diffusion](https://github.com/L-YeZhu/BoundaryDiffusion), [FaceXformer](https://github.com/Kartik-3004/facexformer), and [MagFace](https://github.com/IrvingMeng/MagFace?tab=readme-ov-file).
