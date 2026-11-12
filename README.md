@@ -10,7 +10,7 @@ To run the code, the following model files should be prepared.
 Please install the environment with the following steps:
 ```
 conda create --name fluid python=3.8
-conda activate latent
+conda activate fluid
 conda install pytorch==1.8.0 torchvision==0.9.0 torchaudio==0.8.0 cudatoolkit=11.1 -c pytorch -c conda-forge
 cd fluid
 pip install -r requirements.txt
